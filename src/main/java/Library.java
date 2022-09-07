@@ -38,4 +38,8 @@ public class Library {
         }
     }
 
+    public void checkOut(Patron p, Book b) {
+
+    }
+
 }
