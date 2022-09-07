@@ -39,7 +39,9 @@ public class Library {
     }
 
     public void checkOut(Patron p, Book b) {
-
+        int currentCopies = bookCopies.get(b);
+        bookCopies.put(b, currentCopies - 1);
+        p.addBookToCheckedOut(b);
     }
 
 }
