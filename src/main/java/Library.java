@@ -39,6 +39,9 @@ public class Library {
     }
 
     public void checkOut(Patron p, Book b) {
+        if (!isPatron(p)) {
+            throw new IllegalArgumentException("Error: Patron is not a member of the Library and cannot checkout books: " + p);
+        }
         if (!bookCopies.containsKey(b)) {
             throw new IllegalArgumentException("Error: Library doesn't carry the book " + b);
         }

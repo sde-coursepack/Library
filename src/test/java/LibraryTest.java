@@ -110,7 +110,7 @@ public class LibraryTest {
         List<Book> patronCheckedOut = new ArrayList<>();
         Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
         Library testLibrary = new Library(testBookCopies, patronList);
-        testBookCopies.put(gardensOfTheMoon, 0);
+        testBookCopies.put(gardensOfTheMoon, 2);
 
         assertThrows(IllegalArgumentException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
