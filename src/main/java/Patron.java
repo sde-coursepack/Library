@@ -49,6 +49,10 @@ public class Patron {
         this.booksCheckedOut = booksCheckedOut;
     }
 
+    public void addBookToCheckedOut(Book b) {
+        booksCheckedOut.add(b);
+    }
+
     public int getNumberOfBooksCheckedOut() {
         return booksCheckedOut.size();
     }
