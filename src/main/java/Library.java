@@ -16,5 +16,17 @@ public class Library {
         this(new HashMap<>(), new ArrayList<>());
     }
 
+    public boolean isPatron(Patron patron) {
+        return patrons.contains(patron);
+    }
+
+    public void addPatron(Patron patron) {
+        if (!isPatron(patron))
+        patrons.add(patron);
+    }
+
+    public int getNumCopies(Book b) {
+        return bookCopies.get(b);
+    }
 
 }
