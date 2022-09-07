@@ -48,4 +48,8 @@ public class Patron {
     public void setBooksCheckedOut(List<Book> booksCheckedOut) {
         this.booksCheckedOut = booksCheckedOut;
     }
+
+    public int getNumberOfBooksCheckedOut() {
+        return booksCheckedOut.size();
+    }
 }
