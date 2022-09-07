@@ -40,6 +40,9 @@ public class Library {
 
     public void checkOut(Patron p, Book b) {
         int currentCopies = bookCopies.get(b);
+        if (currentCopies == 0) {
+            throw new RuntimeException("Error: Library has no copies of " + b);
+        }
         bookCopies.put(b, currentCopies - 1);
         p.addBookToCheckedOut(b);
     }
