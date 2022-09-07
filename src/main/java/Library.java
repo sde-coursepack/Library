@@ -30,7 +30,7 @@ public class Library {
     }
 
     public void addBooks(Book b, int copies) {
-
+        bookCopies.put(b, copies);
     }
 
 }
