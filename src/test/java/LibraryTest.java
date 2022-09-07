@@ -67,7 +67,6 @@ public class LibraryTest {
         Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
         Library testLibrary = new Library(testBookCopies, patronList);
         testBookCopies.put(gardensOfTheMoon, 0);
-
         patronList.add(testPatron);
 
         assertThrows(RuntimeException.class, () ->
@@ -99,5 +98,27 @@ public class LibraryTest {
                 "Patron doesn't have test book in their checked out list");
         assertEquals(0, patronCheckedOut.size(),
                 "Patron doesn't have right number of books checked out");
+    }
+
+    @Test
+    public void checkOutInvalidPatronTest() {
+        Map<Book, Integer> testBookCopies = new HashMap<>();
+        List<Patron> patronList = new ArrayList<>();
+        Book gardensOfTheMoon = new Book(1,
+                "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
+                "Steven Erikson");
+        List<Book> patronCheckedOut = new ArrayList<>();
+        Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
+        Library testLibrary = new Library(testBookCopies, patronList);
+        testBookCopies.put(gardensOfTheMoon, 0);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                testLibrary.checkOut(testPatron, gardensOfTheMoon));
+        assertEquals(2, testBookCopies.get(gardensOfTheMoon),
+                "Library has wrong number of copies of test book");
+        assertFalse(patronCheckedOut.contains(gardensOfTheMoon),
+                "Invalid Patron has test book in their checked out list");
+        assertEquals(0, patronCheckedOut.size(), "Patron doesn't have right number of books checked out");
+
     }
 }
