@@ -2,6 +2,8 @@ import java.util.*;
 import java.util.*;
 
 public class Library {
+    public static final int MAX_BOOKS_PER_PATRON = 3;
+
     private Map<Book, Integer> bookCopies;
     private List<Patron> patrons;
 
