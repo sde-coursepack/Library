@@ -82,4 +82,14 @@ public class Patron {
     public int hashCode() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Patron{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", Has checked out " + getNumberOfBooksCheckedOut() + " books" +
+                '}';
+    }
 }
