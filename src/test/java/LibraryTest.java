@@ -55,4 +55,28 @@ public class LibraryTest {
                 "Patron doesn't have test book in their checked out list");
         assertEquals(1, patronCheckedOut.size(), "Patron doesn't have right number of books checked out");
     }
+
+    @Test
+    public void checkOutNoMoreCopiesTest() {
+        Map<Book, Integer> testBookCopies = new HashMap<>();
+        List<Patron> patronList = new ArrayList<>();
+        Book gardensOfTheMoon = new Book(1,
+                "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
+                "Steven Erikson");
+        List<Book> patronCheckedOut = new ArrayList<>();
+        Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
+        Library testLibrary = new Library(testBookCopies, patronList);
+        testBookCopies.put(gardensOfTheMoon, 0);
+
+        assertThrows(RuntimeException.class, () ->
+            patronList.add(testPatron));
+
+        testLibrary.checkOut(testPatron, gardensOfTheMoon);
+        assertEquals(0, testBookCopies.get(gardensOfTheMoon),
+                "Library should till have no copies");
+        assertFalse(patronCheckedOut.contains(gardensOfTheMoon),
+                "Patron doesn't have test book in their checked out list");
+        assertEquals(0, patronCheckedOut.size(), "Patron doesn't have right number of books checked out");
+
+    }
 }
