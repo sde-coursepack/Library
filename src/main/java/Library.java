@@ -30,7 +30,12 @@ public class Library {
     }
 
     public void addBooks(Book b, int copies) {
-        bookCopies.put(b, copies);
+        if (bookCopies.containsKey(b)) {
+            int currentCopies = bookCopies.get(b);
+            bookCopies.put(b, currentCopies + copies);
+        } else {
+            bookCopies.put(b, copies);
+        }
     }
 
 }
