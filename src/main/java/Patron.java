@@ -49,6 +49,21 @@ public class Patron {
         booksCheckedOut.add(b);
     }
 
+    public void removeCheckedOutBook(Book b) {
+        if (!booksCheckedOut.contains(b)) {
+            throw new IllegalArgumentException(
+                    generateRemoveCheckedOutBookError(b));
+        }
+        booksCheckedOut.remove(b);
+    }
+
+    public String generateRemoveCheckedOutBookError(Book b) {
+        return "Patron cannot return book they have not checked out!\n" +
+                "\t" + this +
+                "\tCheck out list: " + this.booksCheckedOut +
+                "\t" + b;
+    }
+
     public int getNumberOfBooksCheckedOut() {
         return booksCheckedOut.size();
     }
