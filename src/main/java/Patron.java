@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Patron {
-    private int id;
+    private final int id;
     private String firstName, lastName;
     private List<Book> booksCheckedOut;
 
@@ -19,10 +19,6 @@ public class Patron {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -55,5 +51,20 @@ public class Patron {
 
     public int getNumberOfBooksCheckedOut() {
         return booksCheckedOut.size();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Patron patron = (Patron) o;
+
+        return id == patron.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
