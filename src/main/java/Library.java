@@ -39,6 +39,9 @@ public class Library {
     }
 
     public void checkOut(Patron p, Book b) {
+        if (!bookCopies.containsKey(b)) {
+            throw new IllegalArgumentException("Error: Library doesn't carry the book " + b);
+        }
         int currentCopies = bookCopies.get(b);
         if (currentCopies == 0) {
             throw new RuntimeException("Error: Library has no copies of " + b);
