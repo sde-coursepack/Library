@@ -68,10 +68,10 @@ public class LibraryTest {
         Library testLibrary = new Library(testBookCopies, patronList);
         testBookCopies.put(gardensOfTheMoon, 0);
 
-        assertThrows(RuntimeException.class, () ->
-            patronList.add(testPatron));
+        patronList.add(testPatron);
 
-        testLibrary.checkOut(testPatron, gardensOfTheMoon);
+        assertThrows(RuntimeException.class, () ->
+                testLibrary.checkOut(testPatron, gardensOfTheMoon));
         assertEquals(0, testBookCopies.get(gardensOfTheMoon),
                 "Library should till have no copies");
         assertFalse(patronCheckedOut.contains(gardensOfTheMoon),
