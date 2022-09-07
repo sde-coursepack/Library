@@ -29,4 +29,8 @@ public class Library {
         return bookCopies.get(b);
     }
 
+    public void addBooks(Book b, int copies) {
+
+    }
+
 }
