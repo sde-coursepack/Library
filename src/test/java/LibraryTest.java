@@ -92,7 +92,7 @@ public class LibraryTest {
     public void testCheckOutWhenPatronAlreadyHasACopyTest() {
         givenBookCopyEntryInTestLibraryMap(gardensOfTheMoon, 2);
         givenPatronEnrolledInTestLibrary(testPatron);
-        givenCheckOutListIsListOf(testCheckOutList, gardensOfTheMoon);
+        givenCheckOutListContainsBooks(testCheckOutList, gardensOfTheMoon);
 
         assertThrows(RuntimeException.class, () ->
             testLibrary.checkOut(testPatron, gardensOfTheMoon));
@@ -111,8 +111,8 @@ public class LibraryTest {
         testPatronList.add(testPatron);
     }
 
-    private void givenCheckOutListIsListOf(List<Book> testCheckOutList, Book...books) {
-        testCheckOutList = convertArrayToArrayList(books);
+    private void givenCheckOutListContainsBooks(List<Book> testCheckOutList, Book...books) {
+        testCheckOutList.addAll(convertArrayToArrayList(books));
     }
 
     private void assertTestLibraryHasNCopiesOfBook(Book book, int numberOfCopies) {

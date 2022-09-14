@@ -92,4 +92,8 @@ public class Patron {
                 ", Has checked out " + getNumberOfBooksCheckedOut() + " books" +
                 '}';
     }
+
+    public boolean hasCheckedOut(Book b) {
+        return booksCheckedOut.contains(b);
+    }
 }
