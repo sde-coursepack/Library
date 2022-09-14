@@ -35,7 +35,7 @@ public class LibraryTest {
 
     @Test
     public void addBooksExistingBooksTest() {
-        testBookCopies.put(gardensOfTheMoon, 2); // add existing book
+        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 2); // add existing book
 
         testLibrary.addBooks(gardensOfTheMoon, 2); // add new copies of existing book
 
@@ -44,8 +44,8 @@ public class LibraryTest {
 
     @Test
     public void checkOutEquivalenceTest() {
-        testBookCopies.put(gardensOfTheMoon, 2); // add copies of the book we check out
-        testPatronList.add(testPatron); // enroll testPatron in Library
+        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 2); // add copies of the book we check out
+        givenPatronEnrolledInLibrary(testPatron); // enroll testPatron in Library
 
         testLibrary.checkOut(testPatron, gardensOfTheMoon);
 
@@ -55,20 +55,20 @@ public class LibraryTest {
 
     @Test
     public void checkOutNoMoreCopiesTest() {
-        testBookCopies.put(gardensOfTheMoon, 0); // library carries book, but no copies available
-        testPatronList.add(testPatron); // enroll testPatron in Library
+        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 0); // library carries book, but no copies available
+        givenPatronEnrolledInLibrary(testPatron); // enroll testPatron in Library
 
         assertThrows(RuntimeException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
 
 
         assertLibraryHasNCopiesOfBook(gardensOfTheMoon, 0);
-        assertCheckOutListEquals(); // empty checkout list
+        assertEmptyCheckOutList();
     }
 
     @Test
     public void checkOutLibraryDoesntCarryBookTest() {
-        testPatronList.add(testPatron); // enroll testPatron in Library
+        givenPatronEnrolledInLibrary(testPatron); // enroll testPatron in Library
 
         assertThrows(IllegalArgumentException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
@@ -79,13 +79,21 @@ public class LibraryTest {
 
     @Test
     public void checkOutInvalidPatronTest() {
-        testBookCopies.put(gardensOfTheMoon, 2);
+        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 2);
 
         assertThrows(IllegalArgumentException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
 
         assertLibraryHasNCopiesOfBook(gardensOfTheMoon, 2);
         assertCheckOutListEquals(); // empty checkout list
+    }
+
+    private void givenBookCopyEntryToTestLibraryMap(Book book, int value) {
+        testBookCopies.put(book, value);
+    }
+
+    private void givenPatronEnrolledInLibrary(Patron testPatron) {
+        testPatronList.add(testPatron);
     }
 
     private void assertLibraryHasNCopiesOfBook(Book book, int numberOfCopies) {
@@ -105,6 +113,4 @@ public class LibraryTest {
     private void assertEmptyCheckOutList() {
         assertTrue(testCheckOutList.isEmpty());
     }
-
-
 }
