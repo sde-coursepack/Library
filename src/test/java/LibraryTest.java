@@ -71,6 +71,8 @@ public class LibraryTest {
 
         assertThrows(RuntimeException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
+
+
         assertEquals(0, testBookCopies.get(gardensOfTheMoon),
                 "Library should till have no copies");
         assertFalse(patronCheckedOut.contains(gardensOfTheMoon),
