@@ -45,6 +45,9 @@ public class Library {
         if (!bookCopies.containsKey(b)) {
             throw new IllegalArgumentException("Error: Library doesn't carry the book " + b);
         }
+        if (p.hasCheckedOut(b)) {
+            throw new RuntimeException("Error: Patron has already checked out " + b);
+        }
         int currentCopies = bookCopies.get(b);
         if (currentCopies == 0) {
             throw new RuntimeException("Error: Library has no copies of " + b);
