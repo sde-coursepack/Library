@@ -5,17 +5,29 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
-    
+    private Library testLibrary;
+    private Map<Book, Integer> testBookCopies;
+    private List<Patron> testPatronList;
+
+    private Book gardensOfTheMoon;
+
+    private Patron testPatron;
+    private List<Book> testCheckOutList;
+
+    @BeforeEach
+    public void setupDefaultTestObjects() {
+        testBookCopies = new HashMap<>();
+        testPatronList = new ArrayList<>();
+        testLibrary = new Library(testBookCopies, testPatronList);
+
+        gardensOfTheMoon = new Book(1,"Gardens Of The Moon: Book 1 of Malazan Book of the Fallen", "Steven Erikson");
+
+        testCheckOutList = new ArrayList<>();
+        testPatron = new Patron(12, "John", "Smith", testCheckOutList);
+    }
     
     @Test
     public void addBooksNewBooksTest() {
-        Map<Book, Integer> testBookCopies = new HashMap<>();
-        List<Patron> testPatronList = new ArrayList<>();
-        Library testLibrary = new Library(testBookCopies, testPatronList);
-        Book gardensOfTheMoon = new Book(1,
-                "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
-                "Steven Erikson");
-
         testLibrary.addBooks(gardensOfTheMoon, 2);
 
         assertTrue(testBookCopies.containsKey(gardensOfTheMoon), "Test book not added to Map");
