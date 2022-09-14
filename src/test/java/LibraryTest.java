@@ -115,7 +115,6 @@ public class LibraryTest {
     }
 
 
-
     private ArrayList<Book> convertArrayToArrayList(Book[] bookArray) {
         List<Book> bookList = Arrays.asList(bookArray);
         return new ArrayList<>(bookList);
