@@ -83,9 +83,8 @@ public class LibraryTest {
 
         assertThrows(IllegalArgumentException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
-        assertEquals(2, testBookCopies.get(gardensOfTheMoon),
-                "Library has wrong number of copies of test book");
 
+        assertLibraryHasNCopiesOfBook(gardensOfTheMoon, 2);
         assertCheckOutListEquals(); // empty checkout list
     }
 
