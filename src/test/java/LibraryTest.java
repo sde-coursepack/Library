@@ -28,7 +28,7 @@ public class LibraryTest {
     
     @Test
     public void addBooksNewBooksTest() {
-        testLibrary.addBooks(gardensOfTheMoon, 2);
+        testLibrary.addBooks(gardensOfTheMoon, 2); // add copies of a new book
 
         assertTrue(testBookCopies.containsKey(gardensOfTheMoon), "Test book not added to Map");
         assertEquals(2, testBookCopies.get(gardensOfTheMoon), "Incorrect number of copies added");
@@ -36,15 +36,10 @@ public class LibraryTest {
 
     @Test
     public void addBooksExistingBooksTest() {
-        Map<Book, Integer> testBookCopies = new HashMap<>();
-        List<Patron> testPatronList = new ArrayList<>();
-        Book gardensOfTheMoon = new Book(1,
-                "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
-                "Steven Erikson");
-        Library testLibrary = new Library(testBookCopies, testPatronList);
-        testBookCopies.put(gardensOfTheMoon, 2);
+        testBookCopies.put(gardensOfTheMoon, 2); // add existing book
 
-        testLibrary.addBooks(gardensOfTheMoon, 2);
+        testLibrary.addBooks(gardensOfTheMoon, 2); // add new copies of existing book
+
         assertTrue(testBookCopies.containsKey(gardensOfTheMoon), "Test book no longer in Map");
         assertEquals(4, testBookCopies.get(gardensOfTheMoon), "Incorrect number of copies after add");
     }
