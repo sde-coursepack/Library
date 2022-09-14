@@ -30,51 +30,51 @@ public class LibraryTest {
     public void addBooksNewBooksTest() {
         testLibrary.addBooks(gardensOfTheMoon, 2); // add copies of a new book
 
-        assertLibraryHasNCopiesOfBook(gardensOfTheMoon, 2);
+        assertTestLibraryHasNCopiesOfBook(gardensOfTheMoon, 2);
     }
 
     @Test
     public void addBooksExistingBooksTest() {
-        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 2); // add existing book
+        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 2);
 
-        testLibrary.addBooks(gardensOfTheMoon, 2); // add new copies of existing book
+        testLibrary.addBooks(gardensOfTheMoon, 2);
 
-        assertLibraryHasNCopiesOfBook(gardensOfTheMoon, 4);
+        assertTestLibraryHasNCopiesOfBook(gardensOfTheMoon, 4);
     }
 
     @Test
     public void checkOutEquivalenceTest() {
-        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 2); // add copies of the book we check out
-        givenPatronEnrolledInLibrary(testPatron); // enroll testPatron in Library
+        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 2);
+        givenPatronEnrolledInTestLibrary(testPatron);
 
         testLibrary.checkOut(testPatron, gardensOfTheMoon);
 
-        assertLibraryHasNCopiesOfBook(gardensOfTheMoon, 1);
-        assertCheckOutListEquals(gardensOfTheMoon);
+        assertTestLibraryHasNCopiesOfBook(gardensOfTheMoon, 1);
+        assertCheckOutListEqualsListOf(testCheckOutList, gardensOfTheMoon);
     }
 
     @Test
     public void checkOutNoMoreCopiesTest() {
-        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 0); // library carries book, but no copies available
-        givenPatronEnrolledInLibrary(testPatron); // enroll testPatron in Library
+        givenBookCopyEntryToTestLibraryMap(gardensOfTheMoon, 0);
+        givenPatronEnrolledInTestLibrary(testPatron);
 
         assertThrows(RuntimeException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
 
 
-        assertLibraryHasNCopiesOfBook(gardensOfTheMoon, 0);
-        assertEmptyCheckOutList();
+        assertTestLibraryHasNCopiesOfBook(gardensOfTheMoon, 0);
+        assertTestCheckOutListIsEmpty(testCheckOutList);
     }
 
     @Test
     public void checkOutLibraryDoesntCarryBookTest() {
-        givenPatronEnrolledInLibrary(testPatron); // enroll testPatron in Library
+        givenPatronEnrolledInTestLibrary(testPatron);
 
         assertThrows(IllegalArgumentException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
 
-        assertLibraryDoesNotCarryBook(gardensOfTheMoon);
-        assertEmptyCheckOutList();
+        assertTestLibraryDoesNotCarryBook(gardensOfTheMoon);
+        assertTestCheckOutListIsEmpty(testCheckOutList);
     }
 
     @Test
@@ -84,33 +84,40 @@ public class LibraryTest {
         assertThrows(IllegalArgumentException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
 
-        assertLibraryHasNCopiesOfBook(gardensOfTheMoon, 2);
-        assertCheckOutListEquals(); // empty checkout list
+        assertTestLibraryHasNCopiesOfBook(gardensOfTheMoon, 2);
+        assertTestCheckOutListIsEmpty(testCheckOutList);
     }
 
     private void givenBookCopyEntryToTestLibraryMap(Book book, int value) {
         testBookCopies.put(book, value);
     }
 
-    private void givenPatronEnrolledInLibrary(Patron testPatron) {
+    private void givenPatronEnrolledInTestLibrary(Patron testPatron) {
         testPatronList.add(testPatron);
     }
 
-    private void assertLibraryHasNCopiesOfBook(Book book, int numberOfCopies) {
+    private void assertTestLibraryHasNCopiesOfBook(Book book, int numberOfCopies) {
         assertTrue(testBookCopies.containsKey(book), "Test book not added to Map: " + book);
         assertEquals(numberOfCopies, testBookCopies.get(book), "Incorrect number of copies of " + book + " present");
     }
 
-    private void assertCheckOutListEquals(Book... books) {
-        List<Book> expected = new ArrayList<>(Arrays.asList(books));
-        assertEquals(expected, testCheckOutList);
+    private void assertTestLibraryDoesNotCarryBook(Book book) {
+        assertFalse(testBookCopies.containsKey(book), "Library should not be carrying " + book);
     }
 
-    private void assertLibraryDoesNotCarryBook(Book book) {
-        assertFalse(testBookCopies.containsKey(book));
+    private void assertCheckOutListEqualsListOf(List<Book> testCheckOutList, Book... books) {
+        List<Book> expected = convertArrayToArrayList(books);
+        assertEquals(expected, testCheckOutList, "Check Out List is not as expected.");
     }
 
-    private void assertEmptyCheckOutList() {
+    private void assertTestCheckOutListIsEmpty(List<Book> testCheckOutList) {
         assertTrue(testCheckOutList.isEmpty());
+    }
+
+
+
+    private ArrayList<Book> convertArrayToArrayList(Book[] bookArray) {
+        List<Book> bookList = Arrays.asList(bookArray);
+        return new ArrayList<>(bookList);
     }
 }
