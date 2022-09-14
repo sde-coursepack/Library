@@ -5,11 +5,13 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
+    
+    
     @Test
     public void addBooksNewBooksTest() {
         Map<Book, Integer> testBookCopies = new HashMap<>();
-        List<Patron> patronList = new ArrayList<>();
-        Library testLibrary = new Library(testBookCopies, patronList);
+        List<Patron> testPatronList = new ArrayList<>();
+        Library testLibrary = new Library(testBookCopies, testPatronList);
         Book gardensOfTheMoon = new Book(1,
                 "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
                 "Steven Erikson");
@@ -23,11 +25,11 @@ public class LibraryTest {
     @Test
     public void addBooksExistingBooksTest() {
         Map<Book, Integer> testBookCopies = new HashMap<>();
-        List<Patron> patronList = new ArrayList<>();
+        List<Patron> testPatronList = new ArrayList<>();
         Book gardensOfTheMoon = new Book(1,
                 "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
                 "Steven Erikson");
-        Library testLibrary = new Library(testBookCopies, patronList);
+        Library testLibrary = new Library(testBookCopies, testPatronList);
         testBookCopies.put(gardensOfTheMoon, 2);
 
         testLibrary.addBooks(gardensOfTheMoon, 2);
@@ -38,15 +40,15 @@ public class LibraryTest {
     @Test
     public void checkOutEquivalenceTest() {
         Map<Book, Integer> testBookCopies = new HashMap<>();
-        List<Patron> patronList = new ArrayList<>();
+        List<Patron> testPatronList = new ArrayList<>();
         Book gardensOfTheMoon = new Book(1,
                 "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
                 "Steven Erikson");
         List<Book> patronCheckedOut = new ArrayList<>();
         Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
-        Library testLibrary = new Library(testBookCopies, patronList);
+        Library testLibrary = new Library(testBookCopies, testPatronList);
         testBookCopies.put(gardensOfTheMoon, 2);
-        patronList.add(testPatron);
+        testPatronList.add(testPatron);
 
         testLibrary.checkOut(testPatron, gardensOfTheMoon);
         assertEquals(1, testBookCopies.get(gardensOfTheMoon),
@@ -59,15 +61,15 @@ public class LibraryTest {
     @Test
     public void checkOutNoMoreCopiesTest() {
         Map<Book, Integer> testBookCopies = new HashMap<>();
-        List<Patron> patronList = new ArrayList<>();
+        List<Patron> testPatronList = new ArrayList<>();
         Book gardensOfTheMoon = new Book(1,
                 "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
                 "Steven Erikson");
         List<Book> patronCheckedOut = new ArrayList<>();
         Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
-        Library testLibrary = new Library(testBookCopies, patronList);
+        Library testLibrary = new Library(testBookCopies, testPatronList);
         testBookCopies.put(gardensOfTheMoon, 0);
-        patronList.add(testPatron);
+        testPatronList.add(testPatron);
 
         assertThrows(RuntimeException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
@@ -84,14 +86,14 @@ public class LibraryTest {
     @Test
     public void checkOutLibraryDoesntHaveBookTest() {
         Map<Book, Integer> testBookCopies = new HashMap<>();
-        List<Patron> patronList = new ArrayList<>();
+        List<Patron> testPatronList = new ArrayList<>();
         Book gardensOfTheMoon = new Book(1,
                 "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
                 "Steven Erikson");
         List<Book> patronCheckedOut = new ArrayList<>();
         Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
-        Library testLibrary = new Library(testBookCopies, patronList);
-        patronList.add(testPatron);
+        Library testLibrary = new Library(testBookCopies, testPatronList);
+        testPatronList.add(testPatron);
 
         assertThrows(IllegalArgumentException.class, () ->
                 testLibrary.checkOut(testPatron, gardensOfTheMoon));
@@ -105,13 +107,13 @@ public class LibraryTest {
     @Test
     public void checkOutInvalidPatronTest() {
         Map<Book, Integer> testBookCopies = new HashMap<>();
-        List<Patron> patronList = new ArrayList<>();
+        List<Patron> testPatronList = new ArrayList<>();
         Book gardensOfTheMoon = new Book(1,
                 "Gardens Of The Moon: Book 1 of Malazan Book of the Fallen",
                 "Steven Erikson");
         List<Book> patronCheckedOut = new ArrayList<>();
         Patron testPatron = new Patron(12, "John", "Smith", patronCheckedOut);
-        Library testLibrary = new Library(testBookCopies, patronList);
+        Library testLibrary = new Library(testBookCopies, testPatronList);
         testBookCopies.put(gardensOfTheMoon, 2);
 
         assertThrows(IllegalArgumentException.class, () ->
