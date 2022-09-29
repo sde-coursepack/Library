@@ -46,6 +46,9 @@ public class Patron {
     }
 
     public void addBookToCheckedOut(Book b) {
+        if (booksCheckedOut.contains(b)) {
+            throw new IllegalArgumentException("Already have copy checked out");
+        }
         booksCheckedOut.add(b);
     }
 
