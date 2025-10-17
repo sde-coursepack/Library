@@ -35,6 +35,8 @@ public class PatronTest {
         assertThrows(IllegalArgumentException.class, () ->
                 testPatron.addBookToCheckedOut(mistborn));
         verify(mockList).contains(mistborn);
-        verifyNoMoreInteractions(mockList);
+        // I include this to illustrate "no more interactions", but I would discourage its use. THis is because doing literally **anything** 
+        // else with this object will cause a test failure, even if it doesn't actually change any post-conditions.
+        verifyNoMoreInteractions(mockList); 
     }
 }
